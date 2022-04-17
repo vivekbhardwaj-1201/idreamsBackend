@@ -11,6 +11,11 @@ const notesSchema = new mongoose.Schema({
                 {
                     title: String,
                     description: String,
+                    status: {
+                        type: String,
+                        enum : ['todo','inprogress','completed'],
+                        default: 'inprogress'
+                    },
                 },
                 { timestamps: true }
             ),
@@ -19,7 +24,8 @@ const notesSchema = new mongoose.Schema({
     isDeleted: {
         type: Boolean,
         default: false
-    }
+    },
+
 });
 
 const Notes = new mongoose.model("notes", notesSchema);

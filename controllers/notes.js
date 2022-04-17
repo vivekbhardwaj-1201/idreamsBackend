@@ -15,9 +15,11 @@ async function createNote (req,res){
 					notes: {
 						title: req.body.title,
 						description: req.body.description,
+                        status:req.body.status
 					},
 				},
 			},
+
 			{ upsert: true },
 			function (error, success) {
 				if (error) {
@@ -38,6 +40,35 @@ async function createNote (req,res){
 	}
 }
 
+async function updateNoteStatus(req,res){
+    let respObj = {
+        isSuccess: false,
+        message: "Successful",
+        Data: null,
+    };
+	try {
+		const userId = req.params.userId;
+		const noteId = req.params.noteId;
+		const data = await Note.findOneAndUpdate(
+			{ _id: noteId },
+			{
+				$set: {
+					userId: userId,
+					title: req.body.title,
+					description: req.body.description,
+                    status:req.body.status
+				},
+			}
+		);
+		respObj.message = "Updated successfully";
+		respObj.isSuccess = true;
+		res.status(200).json(respObj);
+	} catch (error) {
+		respObj.message = "Error Occured" + error;
+		res.status(404).json(respObj);
+	}
+
+}
 async function getAllNotes(req,res){
     let respObj = {
         isSuccess: false,
@@ -119,4 +150,5 @@ module.exports = {
     updateNote,
     deleteNote,
     getAllNotes,
+    updateNoteStatus,
 }
