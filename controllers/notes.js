@@ -47,13 +47,14 @@ async function getAllNotes(req,res){
     try{
         console.log("vivek")
         let userId = req.params.userId;
-        let result = await Note.findAll({
+        let result = await Note.findOne({
             userId: userId,
         })
         respObj.isSuccess = true;
         respObj.Data = result;
         res.status(200).json(respObj);
     }catch(err){
+        console.log("im here");
         console.log("error is ",err);
         respObj.message = "Server Error";
         res.status(404).json(respObj);
