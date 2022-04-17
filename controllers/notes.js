@@ -46,18 +46,22 @@ async function updateNoteStatus(req,res){
         Data: null,
     };
 	try {
+        console.log("req.body",req.body.status);
 		const userId = req.params.userId;
 		const noteId = req.params.noteId;
-		const data = await Note.findOneAndUpdate(
-			{ _id: noteId },
+		const data = await Note.update(
+			{ userId: userId, "notes._id": noteId },
 			{
 				$set: {
-                    status:req.body.status
+                    "notes.$.status" : req.body.status
 				},
 			}
 		);
+        // const data = await Note.findOne()
+        console.log(data);
 		respObj.message = "Updated successfully";
 		respObj.isSuccess = true;
+        respObj.Data = data;
 		res.status(200).json(respObj);
 	} catch (error) {
 		respObj.message = "Error Occured" + error;

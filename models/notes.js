@@ -13,7 +13,6 @@ const notesSchema = new mongoose.Schema({
                     description: String,
                     status: {
                         type: String,
-                        enum : ['todo','inprogress','completed'],
                         default: 'todo'
                     },
                 },
