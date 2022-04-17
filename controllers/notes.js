@@ -14,8 +14,7 @@ async function createNote (req,res){
 				$push: {
 					notes: {
 						title: req.body.title,
-						description: req.body.description,
-                        status:req.body.status
+						description: req.body.description
 					},
 				},
 			},
@@ -53,9 +52,6 @@ async function updateNoteStatus(req,res){
 			{ _id: noteId },
 			{
 				$set: {
-					userId: userId,
-					title: req.body.title,
-					description: req.body.description,
                     status:req.body.status
 				},
 			}

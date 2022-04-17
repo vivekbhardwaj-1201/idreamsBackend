@@ -14,7 +14,7 @@ const notesSchema = new mongoose.Schema({
                     status: {
                         type: String,
                         enum : ['todo','inprogress','completed'],
-                        default: 'inprogress'
+                        default: 'todo'
                     },
                 },
                 { timestamps: true }
